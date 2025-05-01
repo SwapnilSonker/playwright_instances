@@ -1,0 +1,12 @@
+playwright
+websockets
+fastapi
+uvicorn
+Pillow
+opencv-python-headless
+pytest 
+black
+mypy
+pydantic
+python-dotenv
+structlog
