@@ -26,8 +26,11 @@ def simulate_server_load():
 def get_next_backend_round_robin() -> str:
     """Round Robin load balancing algorithm."""
     global current_backend_index
+    print(f"at start c : {current_backend_index}")
     backend = BACKEND_SERVERS[current_backend_index]
+    print(f"at start : {backend}")
     current_backend_index = (current_backend_index + 1) % len(BACKEND_SERVERS)
+    print(f"at end : {current_backend_index}")
     return backend
 
 # @app.get("/test")
@@ -44,12 +47,14 @@ async def load_balancer(request: Request, path_name: str):
 
     # Simulate server load (response time)
     server_response_time[BACKEND_SERVERS.index(backend)] = simulate_server_load()
+    print(f"server_response_time : {server_response_time}")
 
     # Construct the URL to forward the request to the selected backend server
     url = f"{backend}/{path_name}"
 
     # Simulate connection count update for Least Connections (round robin, for now)
     server_connections[BACKEND_SERVERS.index(backend)] += 1
+    print(f"server_connections : {server_connections}")
 
     # Forward the request to the backend server based on the HTTP method
     async with httpx.AsyncClient() as client:
