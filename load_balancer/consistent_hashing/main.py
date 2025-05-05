@@ -9,9 +9,13 @@ class ConsistentHashRing:
     def add_server(self , server_name: str):
         for i in range(self.virtual_nodes):
             vnode_name = f"{server_name}-VN{i}"
+            print(f"vnode_name : {vnode_name}")
             h = get_hash(vnode_name)
+            print(f"{server_name} : hash  - {h}")
             self.ring[h] = server_name
+            print(f"ring : {self.ring}")
             self.sorted_hashes.append(h)
+            print(f"sorted_hashes array : {self.sorted_hashes}")
 
     def remove_server(self, server_name: str):
         to_remove = []
